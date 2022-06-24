@@ -8,6 +8,7 @@
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/cart.js"></script>
   <script type="text/javascript">
   function cart(){
 	  if('${sessionScope.id}' == ''){
@@ -16,15 +17,51 @@
 		  return ;
 	  }
 	  //카트테이블에 등록하고 등록확인 창 보여주기 (비동기)
+	  let count = document.getElementById('qty').value;//$('#qty').val()
+	  let select = document.querySelector('.form-select');
+	  let i = select.selectedIndex;
+	  
+	  if(i==0 && !select.disabled){//사이즈를 선택하지 않거나 disabled가 아닌경우
+		  alert('사이즈를 선택하세요');
+	  	  select.focus();
+	  	  return ;
+	  }else if(select.disabled){
+		  select[i].value = 0; //비활성화된경우 사이즈값 0으로
+	  }
+	  
+	  let param = {
+			  contentsno : '${dto.contentsno}',
+			  count : count,
+			  size : select[i].value
+	  }
+	  
+	  addCart(param)
+	  .then(result => alert(result))
+	  .catch(console.log);
+	  
   }
   function order(){
-	  if('${sessionScope.id}' == ''){
-		  alert('먼저 로그인을 하세요');
-		  location.href='/member/login';
-		  return ;
-	  }
-	  //주문서 작성으로 이동, 주문생성 (비동기)
-  }
+      if('${sessionScope.id}' == ''){
+         alert('먼저 로그인을 하세요');
+         location.href='/member/login';
+         return ;
+      }
+      //주문서 작성으로 이동, 주문생성
+      let count = document.getElementById('qty').value;//$('#qty').val()
+      let select = document.querySelector('.form-select');
+      let i = select.selectedIndex;
+
+      if(i==0 && !select.disabled){//사이즈를 선택하지 않거나 disabled가 아닌경우
+         alert('사이즈를 선택하세요');
+           select.focus();
+           return ;
+      }else if(select.disabled){
+         select[i].value = 0; //비활성화된경우 사이즈값 0으로
+      }
+
+      let url = "/order/create/order/${dto.contentsno}/" + count + "/" + select[i].value;
+      location.href=url;
+   }
   </script>
 </head>
 <body>
@@ -47,9 +84,9 @@
      <c:when test="${dto.cateno==1}">
 	    <select class="form-select" aria-label="Default select example">
 		  <option selected>사이즈 선택</option>
-		  <option value="1">L</option>
-		  <option value="2">M</option>
-		  <option value="3">S</option>
+		  <option value="L">L</option>
+		  <option value="M">M</option>
+		  <option value="S">S</option>
 		</select>
      </c:when>
      <c:when test="${dto.cateno==2}">
@@ -70,7 +107,7 @@
 	</c:choose>
     <li class="list-group-item">가격 : ${dto.price }
     <li class="list-group-item">재고 : ${dto.stock }
-    <li class="list-group-item">수량 : <input type="number" name="quantity" min=0 max=20 value="1" >     
+    <li class="list-group-item" >수량 : <input type="number" name="quantity" min=0 max=20 value="1" id='qty'>     
     <li class="list-group-item">
     	 <a href="javascript:cart()">
     	 <img class='btn' src="/svg/cart4.svg"/></a>
