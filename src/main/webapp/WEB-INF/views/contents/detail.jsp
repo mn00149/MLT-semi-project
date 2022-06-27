@@ -127,9 +127,14 @@
 <div class="panel panel-default">
  
 <div class="panel-heading">
-        <i class="fa fa-comments fa-fw"></i> 댓글
+        <i class="fa fa-comments fa-fw"></i> 리뷰
+        <c:choose>
+        <c:when test="${not empty sessionScope.id }">
         <button id='addReplyBtn' class='btn btn-primary btn-xs pull-right'>New
-                Reply</button>
+                Review</button>
+        </c:when>
+        </c:choose>
+        
 </div>
  
  
@@ -139,7 +144,7 @@
                 <li class="left clearfix" data-rno="12">
                         <div>
                                 <div class="header">
-                                        <strong class="primary-font">${id }</strong> <small
+                                        <strong class="primary-font id2">${id }</strong> <small
                                                 class="pull-right text-muted">2019-05-12</small>
                                 </div>
                                 <p>Good job!</p>
@@ -168,7 +173,7 @@ aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"
         aria-hidden="true">&times;</button>
-      <h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
+      <h4 class="modal-title" id="myModalLabel">${id2 }</h4>
     </div>
     <div class="modal-body">
       <div class="form-group">
@@ -177,10 +182,15 @@ aria-labelledby="myModalLabel" aria-hidden="true">
       </div>      
     </div>
 <div class="modal-footer">
+<%-- <c:choose>
+<c:when test="${sessionScope.id == id }"> --%>
 <button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
 <button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
 <button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
 <button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
+<%-- </c:when>
+</c:choose> --%>
+
 </div>          </div>
   <!-- /.modal-content -->
 </div>
@@ -194,12 +204,14 @@ aria-labelledby="myModalLabel" aria-hidden="true">
   let contentsno = "${dto.contentsno}"; 
   let sno = "${sno}";
   let eno = "${eno}";
-  let id = "${sessionScope.id}";
+  let sessionId = "${sessionScope.id}";
  <!-- 댓글용 paging, 게시판 검색 -->
   let nPage = "${nPage}";
   let nowPage = "${param.nowPage}";
   let colx = "${param.col}";
   let wordx = "${param.word}";
+
+  
   
  </script>
   <!-- 댓글처리 관련 Javascript 파일 추가-->

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +19,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.study.reply.ReplyDTO;
-import com.study.reply.ReplyService;
 import com.study.utility.Utility;
 
 @RestController
@@ -35,12 +34,12 @@ public class ReplyController {
       @PathVariable("contentsno") int contentsno, 
       @PathVariable("sno") int sno,
       @PathVariable("eno") int eno) {
- 
+    
+    
     Map map = new HashMap(); 
     map.put("sno", sno);
     map.put("eno", eno);
     map.put("contentsno", contentsno);
- 
     return new ResponseEntity<List<ReplyDTO>>(service.list(map), HttpStatus.OK);
   }
   
