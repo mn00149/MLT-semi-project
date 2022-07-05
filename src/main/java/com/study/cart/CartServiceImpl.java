@@ -24,5 +24,11 @@ public class CartServiceImpl implements CartService {
     // TODO Auto-generated method stub
     mapper.delete(cartno);
   }
+  @Override
+  public void deleteAll(String id) {
+    // TODO Auto-generated method stub
+    mapper.deleteAll(id);
+    
+  }
 
 }

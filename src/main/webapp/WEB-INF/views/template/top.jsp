@@ -73,7 +73,7 @@
           <li><a href="${root}/member/mypage">Mypage</a></li>
           <li><a href="${root}/contents/detail">Review</a></li>
           <li><a href="/notice/list">Notice</a></li>
-          <li><a href="#">Q&A</a></li>
+          <li><a href="/naver_chatting">Q&A</a></li>
         </ul>
       </li>
     <li><a id="grade"><span class="glyphicon glyphicon-grain"></span> ${str}</a></li>

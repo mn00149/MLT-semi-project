@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.study.orders.OrderMapper">
+ 
+<insert id="createOrder" parameterType="com.study.orders.OrdersDTO">
+ 
+INSERT INTO orders(id, mname, odate, total, payment, reqtext)
+VALUES(#{id}, #{mname}, sysdate(), #{total}, #{payment}, #{reqtext})
+ 
+	<selectKey keyProperty="orderno" resultType="int" order="AFTER">
+     SELECT LAST_INSERT_ID()
+    </selectKey>
+    
+</insert>
+ 
+<insert id="createDetail" parameterType="com.study.orders.OrderdetailDTO">
+INSERT INTO order_detail(contentsno, orderno, pname, quantity, size )
+VALUES(#{contentsno}, #{orderno}, #{pname}, #{quantity}, #{size})
+</insert>
+
+
+ 
+</mapper>

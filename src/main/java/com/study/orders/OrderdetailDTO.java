@@ -10,4 +10,5 @@ public class OrderdetailDTO {
   private int contentsno;
   private int quantity;
   private String pname;
+  private String size;
 }
